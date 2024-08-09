@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+{% for d in data %}
+<div class='px-3 pt-2 pb-3'>
+    <h2 class='text-danger-emphasis'>{{d.name}}</h2>
+    <p>{{d.due_date}}</p>
+        {% for cat in d.category.all %}
+            <button class='btn btn btn-dark'>{{cat}}</button>
+        {% endfor %}
+    <div class='mt-5 mb-2'>
+        {% if d.finished %}
+        <h4 class='fw-bold text-success'>Completed</h4>
+        {% else %}
+        <a href='{% url "edit_tasks" d.id %}'><button class='btn btn-primary'>Edit</button></a>
+        <a href='{% url "delete_tasks" d.id %}'><button class='btn btn-danger'>Delete</button></a>
+        {% endif %}
+    </div>
+    <hr>
+</div>
+{% endfor %}
+{% endblock  %}
